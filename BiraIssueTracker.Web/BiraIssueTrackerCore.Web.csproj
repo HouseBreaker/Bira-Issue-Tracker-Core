@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <UserSecretsId>aspnet-BiraIssueTracker.Web-EF047985-B9C4-4DCB-8156-18B1390D3C02</UserSecretsId>
+    <UserSecretsId>aspnet-BiraIssueTracker.Web-6E28D357-9D93-4F01-A9B0-BF634C8A9CC9</UserSecretsId>
   </PropertyGroup>
 
 

@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using BiraIssueTrackerCore.Web.Data;
+using BiraIssueTrackerCore.Web.Models;
+using BiraIssueTrackerCore.Web.Services;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using BiraIssueTracker.Web.Data;
-using BiraIssueTracker.Web.Models;
-using BiraIssueTracker.Web.Services;
 
-namespace BiraIssueTracker.Web
+namespace BiraIssueTrackerCore.Web
 {
 	public class Startup
 	{

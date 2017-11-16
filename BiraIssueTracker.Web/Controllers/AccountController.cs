@@ -1,20 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using BiraIssueTrackerCore.Web.Extensions;
+using BiraIssueTrackerCore.Web.Models;
+using BiraIssueTrackerCore.Web.Models.AccountViewModels;
+using BiraIssueTrackerCore.Web.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using BiraIssueTracker.Web.Models;
-using BiraIssueTracker.Web.Models.AccountViewModels;
-using BiraIssueTracker.Web.Services;
 
-namespace BiraIssueTracker.Web.Controllers
+namespace BiraIssueTrackerCore.Web.Controllers
 {
     [Authorize]
     [Route("[controller]/[action]")]

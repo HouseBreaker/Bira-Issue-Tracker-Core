@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace BiraIssueTracker.Web.Models.AccountViewModels
+namespace BiraIssueTrackerCore.Web.Models.AccountViewModels
 {
     public class LoginWith2faViewModel
     {

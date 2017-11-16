@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using BiraIssueTrackerCore.Web.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using BiraIssueTracker.Web.Models;
 
-namespace BiraIssueTracker.Web.Data
+namespace BiraIssueTrackerCore.Web.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {

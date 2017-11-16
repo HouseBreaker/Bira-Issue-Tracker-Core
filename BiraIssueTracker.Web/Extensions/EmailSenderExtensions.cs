@@ -1,11 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using BiraIssueTracker.Web.Services;
+using BiraIssueTrackerCore.Web.Services;
 
-namespace BiraIssueTracker.Web.Services
+namespace BiraIssueTrackerCore.Web.Extensions
 {
     public static class EmailSenderExtensions
     {
