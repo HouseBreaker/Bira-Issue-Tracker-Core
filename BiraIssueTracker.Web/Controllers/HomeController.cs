@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
+using BiraIssueTrackerCore.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using BiraIssueTracker.Web.Models;
 
-namespace BiraIssueTracker.Web.Controllers
+namespace BiraIssueTrackerCore.Web.Controllers
 {
     public class HomeController : Controller
     {

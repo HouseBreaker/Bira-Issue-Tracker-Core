@@ -1,6 +1,4 @@
-using System;
-
-namespace BiraIssueTracker.Web.Models
+namespace BiraIssueTrackerCore.Web.Models
 {
     public class ErrorViewModel
     {

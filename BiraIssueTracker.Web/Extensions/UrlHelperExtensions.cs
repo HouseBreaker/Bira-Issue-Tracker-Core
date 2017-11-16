@@ -1,10 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BiraIssueTracker.Web.Controllers;
+using BiraIssueTrackerCore.Web.Controllers;
+using Microsoft.AspNetCore.Mvc;
 
-namespace Microsoft.AspNetCore.Mvc
+namespace BiraIssueTrackerCore.Web.Extensions
 {
     public static class UrlHelperExtensions
     {
