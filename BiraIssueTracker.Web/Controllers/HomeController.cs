@@ -1,13 +1,23 @@
 ﻿using System.Diagnostics;
 using BiraIssueTrackerCore.Web.Models;
+using BiraIssueTrackerCore.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BiraIssueTrackerCore.Web.Controllers
 {
     public class HomeController : Controller
     {
-		public ActionResult Index()
+	    private readonly IIssueService issueService;
+
+	    public HomeController(IIssueService issueService)
 	    {
+		    this.issueService = issueService;
+	    }
+
+		public ActionResult Index()
+		{
+			var issues = issueService.GetAllIssues();
+
 		    return View();
 	    }
 

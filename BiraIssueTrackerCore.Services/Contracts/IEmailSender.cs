@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace BiraIssueTrackerCore.Web.Services
+namespace BiraIssueTrackerCore.Services.Contracts
 {
     public interface IEmailSender
     {

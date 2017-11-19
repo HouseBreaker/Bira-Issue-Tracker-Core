@@ -1,4 +1,6 @@
-﻿using BiraIssueTrackerCore.Data.Models;
+﻿using System.Threading.Tasks;
+using BiraIssueTrackerCore.Data.Models;
+using BiraIssueTrackerCore.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,8 +10,11 @@ namespace BiraIssueTrackerCore.Web.Controllers
 	[Route("[controller]/[action]")]
 	public class IssuesController : Controller
 	{
-		public IssuesController()
+		private readonly IIssueService issueService;
+
+		public IssuesController(IIssueService issueService)
 		{
+			this.issueService = issueService;
 		}
 
 		[TempData]
@@ -18,10 +23,7 @@ namespace BiraIssueTrackerCore.Web.Controllers
 		[HttpGet]
 		public IActionResult Index()
 		{
-			var issues = new Issue[]
-			{
-				new Issue() { Title = "test" }
-			};
+			var issues = issueService.GetAllIssues();
 
 			return View(issues);
 		}

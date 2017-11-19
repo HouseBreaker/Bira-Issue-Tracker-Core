@@ -4,13 +4,14 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using BiraIssueTrackerCore.Web.Extensions;
-using BiraIssueTrackerCore.Web.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using BiraIssueTrackerCore.Data.Models.Identity;
+using BiraIssueTrackerCore.Services;
+using BiraIssueTrackerCore.Services.Contracts;
 using BiraIssueTrackerCore.Web.Models.Identity.ManageViewModels;
 
 namespace BiraIssueTrackerCore.Web.Controllers
