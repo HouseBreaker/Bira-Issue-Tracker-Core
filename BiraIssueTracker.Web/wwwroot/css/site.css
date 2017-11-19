@@ -1,35 +1,210 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿@import 'https://fonts.googleapis.com/css?family=Caveat';
+
+body {
+	padding-top: 50px;
+	padding-bottom: 20px;
 }
 
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
+/* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+	padding-left: 15px;
+	padding-right: 15px;
 }
 
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+	white-space: normal;
 }
 
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+	max-width: 280px;
 }
 
-/* QR code generator */
-#qrCode {
-    margin: 15px;
+.navbar-brand {
+	background-image: url('/Images/BIRA_logo.png');
+	background-size: contain;
+	width: 6em;
+	height: 2.4em;
+	background-repeat: no-repeat;
+	background-position: center;
+	margin-top: 1px;
+	margin-right: 5px;
+	transition: transform 0.2s ease-out;
 }
 
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
-    }
+	.navbar-brand:hover {
+		transform: scale(1.07);
+	}
+
+div.navbar-collapse * {
+	transition: background 0.1s ease-out, color 0.1s ease-out;
+}
+
+div.navbar.navbar-default.navbar-fixed-top li > a:hover {
+	background: #ccc;
+}
+
+.flex {
+	display: flex;
+}
+
+.jumbotron {
+	margin-top: 1em;
+}
+
+.jumbo-logo {
+	display: block;
+	width: 60%;
+	margin: 0 auto;
+}
+
+blockquote {
+	font-family: Caveat;
+	font-size: 1.5em;
+}
+
+.btn {
+	transition: background 0.1s ease-out, color 0.1s ease-out;
+}
+
+.alert {
+	margin-top: 20px;
+}
+
+.beer-and-bubbles {
+	position: relative;
+}
+
+.bubble1, .bubble2, .bubble3 {
+	position: absolute;
+	border: 3px solid #003366;
+	border-radius: 100%;
+	top: 75px;
+	background-image: url(/images/bubblePop.png);
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: 50px;
+}
+
+.bubble1 {
+	width: 1em;
+	height: 1em;
+	left: 1.3em;
+	animation: 5.6s 0.6s bubble1Move linear infinite, 5.6s 0.6s bubblePop step-end infinite;
+}
+
+	.bubble1 .bubbleReflection {
+		animation: 5.6s 0.6s bubblePop step-end infinite;
+	}
+
+@-webkit-keyframes bubble1Move {
+	0% {
+		top: 75px;
+	}
+
+	50% {
+		left: 45px;
+	}
+
+	100% {
+		top: -45px;
+	}
+}
+
+.bubble2 {
+	width: 2em;
+	height: 2em;
+	left: 2.6em;
+	animation: 5s bubble2Move linear infinite, 5s bubblePop step-end infinite;
+}
+
+	.bubble2 .bubbleReflection {
+		animation: 5s bubblePop step-end infinite;
+	}
+
+@-webkit-keyframes bubble2Move {
+	0% {
+		top: 70px;
+	}
+
+	50% {
+		left: 2.8em;
+	}
+
+	100% {
+		top: -45px;
+	}
+}
+
+.bubble3 {
+	width: 1.2em;
+	height: 1.2em;
+	left: 4.8em;
+	animation: 8s 0.2s bubble3Move linear infinite, 8s 0.2s bubblePop step-end infinite;
+}
+
+	.bubble3 .bubbleReflection {
+		animation: 8s 0.2s bubblePop step-end infinite;
+	}
+
+@-webkit-keyframes bubble3Move {
+	0% {
+		top: 70px;
+	}
+
+	50% {
+		left: 5.5em;
+	}
+
+	100% {
+		top: -45px;
+	}
+}
+
+.bubbleReflection {
+	position: absolute;
+	border: 2px solid #003366;
+	width: 40%;
+	height: 40%;
+	left: 40%;
+	top: 10%;
+	border-radius: 100%;
+}
+
+@-webkit-keyframes bubblePop {
+	0% {
+		background-position: 50px;
+	}
+
+	99% {
+		background-position: 0;
+		border: none;
+	}
+}
+
+.issues {
+	display: inline-block;
+	margin-top: 20px;
+}
+
+.progress {
+	width: 26.5%;
+	height: 25px;
+}
+
+.progress-bar {
+	padding-top: 1%;
+}
+
+.userDropdownCaret {
+	visibility: hidden;
+}
+
+.userDropdown:hover .userDropdownCaret {
+	visibility: visible;
 }

@@ -1,9 +1,11 @@
-﻿using BiraIssueTrackerCore.Web.Data;
-using BiraIssueTrackerCore.Web.Models;
+﻿using System;
+using BiraIssueTrackerCore.Data;
+using BiraIssueTrackerCore.Data.Models.Identity;
 using BiraIssueTrackerCore.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,7 +24,7 @@ namespace BiraIssueTrackerCore.Web
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddDbContext<ApplicationDbContext>(options =>
+			services.AddDbContext<IssueTrackerDbContext>(options =>
 				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 			services.AddIdentity<ApplicationUser, IdentityRole>(options =>
@@ -33,7 +35,7 @@ namespace BiraIssueTrackerCore.Web
 					options.Password.RequireUppercase = false;
 					options.Password.RequiredLength = 1;
 				})
-				.AddEntityFrameworkStores<ApplicationDbContext>()
+				.AddEntityFrameworkStores<IssueTrackerDbContext>()
 				.AddDefaultTokenProviders();
 
 			// Add application services.
@@ -43,10 +45,12 @@ namespace BiraIssueTrackerCore.Web
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
 		{
 			if (env.IsDevelopment())
 			{
+				DbInitializer.Seed(serviceProvider);
+
 				app.UseDeveloperExceptionPage();
 				app.UseBrowserLink();
 				app.UseDatabaseErrorPage();

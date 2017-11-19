@@ -2,18 +2,18 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
 using BiraIssueTrackerCore.Web.Extensions;
-using BiraIssueTrackerCore.Web.Models;
-using BiraIssueTrackerCore.Web.Models.AccountViewModels;
 using BiraIssueTrackerCore.Web.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using BiraIssueTrackerCore.Data.Models.Identity;
+using BiraIssueTrackerCore.Web.Models.Identity.AccountViewModels;
 
 namespace BiraIssueTrackerCore.Web.Controllers
 {
-    [Authorize]
+	[Authorize]
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {

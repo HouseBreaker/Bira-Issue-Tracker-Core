@@ -28,9 +28,9 @@
 	{
 		string username = ViewBag.Username;
 
-		int numberOfIssues = ViewBag.UnresolvedIssuesCount;
+		int numberOfIssues = 999; // ViewBag.UnresolvedIssuesCount;
 
-		int userAssignedIssuesCount = ViewBag.UserAssignedUnresolvedIssuesCount;
+		int userAssignedIssuesCount = 999; // ViewBag.UserAssignedUnresolvedIssuesCount;
 		var userAssignedIssuesText = userAssignedIssuesCount == 0 ? "none" : $"<a href=\"/Issues/AssignedToMe\">{userAssignedIssuesCount}</a>";
 
 		var workOrRest = userAssignedIssuesCount > 0 ? "get to work" : "take a break";
