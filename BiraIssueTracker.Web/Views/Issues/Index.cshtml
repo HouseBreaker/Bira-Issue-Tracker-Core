@@ -7,11 +7,11 @@
 <h2>All Issues</h2>
 
 <p>
-	@Html.ActionLink("Submit New", "New", null, new { @class = "btn btn-success" })
+	<a asp-action="New" class="btn btn-success">Submit New</a>
 	@if (User.Identity.IsAuthenticated)
 	{
-		@Html.ActionLink("My issues", "Mine", null, new { @class = "btn btn-primary" })
-		@Html.ActionLink("Assigned to me", "AssignedToMe", null, new { @class = "btn btn-primary" })
+		<a asp-action="Mine" class="btn btn-primary">My Issues</a>
+		<a asp-action="AssignedToMe" class="btn btn-primary">Assigned to me</a>
 	}
 </p>
 
