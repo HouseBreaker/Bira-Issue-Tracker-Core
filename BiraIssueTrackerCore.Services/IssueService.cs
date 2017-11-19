@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AutoMapper.QueryableExtensions;
 using BiraIssueTrackerCore.Data;
 using BiraIssueTrackerCore.Data.Models;
 using BiraIssueTrackerCore.Services.Contracts;
@@ -16,13 +17,18 @@ namespace BiraIssueTrackerCore.Services
 			this.context = context;
 		}
 
-		public IEnumerable<Issue> GetAllIssues() =>
-			this.context
-			.Issues
-			.Include(i => i.Author)
-			.Include(i => i.Assignee)
-			.Include(i => i.IssueTags)
-				.ThenInclude(it => it.Tag)
-			.ToArray();
+		public IEnumerable<TModel> All<TModel>(string authorId = null)
+		{
+			var query = this.context.Issues.AsQueryable();
+
+			if (authorId != null)
+			{
+				query = query.Where(i => i.Author.Email == authorId);
+			}
+
+			return query
+				.ProjectTo<TModel>()
+				.ToArray();
+		}
 	}
 }

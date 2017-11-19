@@ -1,33 +1,33 @@
-﻿@model IEnumerable<BiraIssueTrackerCore.Data.Models.Issue>
+﻿@model IEnumerable<BiraIssueTrackerCore.Web.Models.IssueTracker.IssueViewModel>
 
 <table id="issues" class="table table-striped table-bordered table-responsive">
 	<thead>
-		<tr>
-			<th>
-				@Html.DisplayNameFor(model => model.Title)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.Description)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.State)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.Author)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.Assignee)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.Date)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.IssueTags)
-			</th>
-			<th>
-				Quick actions
-			</th>
-		</tr>
+	<tr>
+		<th>
+			@Html.DisplayNameFor(model => model.Title)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Description)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.State)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.AuthorEmail)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.AssigneeEmail)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Date)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Tags)
+		</th>
+		<th>
+			Quick actions
+		</th>
+	</tr>
 	</thead>
 
 	@foreach (var issue in Model)
@@ -43,54 +43,55 @@
 				@issue.State
 			</td>
 			<td>
-				<a asp-controller="Users" asp-action="Profile" asp-route-id="@issue.Author.Email">@issue.Author.Email</a>
+				<a asp-controller="Users" asp-action="Profile" asp-route-id="@issue.AuthorEmail">@issue.AuthorEmail</a>
 			</td>
 			<td>
-				<a asp-controller="Users" asp-action="Profile" asp-route-id="@issue.Assignee.Email">@issue.Assignee.Email</a>
+				<a asp-controller="Users" asp-action="Profile" asp-route-id="@issue.AssigneeEmail">@issue.AssigneeEmail</a>
 			</td>
 			<td>
 				@Html.DisplayFor(modelItem => issue.Date)
 			</td>
 			<td>
-				@if (issue.IssueTags != null)
+				@if (issue.Tags != null)
 				{
-					foreach (var tag in issue.IssueTags.Select(it => it.Tag))
+					foreach (var tag in issue.Tags)
 					{
 						<a asp-controller="Issues" asp-action="Tagged" asp-route-id="{tag.Slug}" class="btn btn-xs btn-default">@tag.Name</a>
 					}
 				}
 			</td>
 			<td>
-				@{
-					//var userIsAssignedIssue = item.Assignee.Id == User.Identity.GetUserId();
-					//var userIsAuthor = item.Author.Id == User.Identity.GetUserId();
-					//var userIsAdmin = User.IsInRole("Administrators");
-					//var userAuthorizedToEdit = userIsAssignedIssue || userIsAuthor || userIsAdmin;
+				<!-- TODO: add back dynamic action buttons -->
 
-					//var disabledButtonClass = userAuthorizedToEdit ? string.Empty : "disabled";
-				}
 				<div class="btn-group flex">
-					@Html.ActionLink("Details", "Details", "Issues", new { id = issue.Id }, new { @class = "btn btn-primary" })
-					<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<a asp-action="Details" asp-route-id="@issue.Id" class="btn btn-primary">Details</a>
+					
+					@{ var dropdownStateAttribute = !issue.UserIsAssignee && !issue.UserIsAuthor ? "disabled" : "";}
+
+					<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" @dropdownStateAttribute>
 						<span class="caret"></span>
 						<span class="sr-only">Toggle Dropdown</span>
 					</button>
-					@*@if (userAuthorizedToEdit)
+
+					@if (issue.UserIsAssignee || issue.UserIsAuthor)
 					{
 						<ul class="dropdown-menu">
-
 							@{
-								var linkText = (userIsAssignedIssue && !userIsAuthor) && !userIsAdmin ? "Change state" : "Edit";
+								var linkText = issue.UserIsAssignee && !issue.UserIsAuthor ? "Change state" : "Edit";
 							}
 
-							<li>@Html.ActionLink(linkText, "Edit", "Issues", new { id = item.Id }, null)</li>
+							<li>
+								<a asp-action="Edit" asp-route-id="issue.Id">@linkText</a>
+							</li>
 
-							@if (userIsAuthor || userIsAdmin)
+							@if (issue.UserIsAuthor)
 							{
-								<li>@Html.ActionLink("Delete", "Delete", "Issues", new { id = item.Id }, null)</li>
+								<li>
+									<a asp-action="Delete" asp-route-id="issue.Id">Delete</a>
+								</li>
 							}
 						</ul>
-					}*@
+					}
 
 				</div>
 			</td>

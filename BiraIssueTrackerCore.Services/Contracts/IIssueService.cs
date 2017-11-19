@@ -7,6 +7,6 @@ namespace BiraIssueTrackerCore.Services.Contracts
 {
     public interface IIssueService
     {
-	    IEnumerable<Issue> GetAllIssues();
+	    IEnumerable<TModel> All<TModel>(string authorId = null);
     }
 }

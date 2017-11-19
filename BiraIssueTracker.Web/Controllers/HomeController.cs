@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using BiraIssueTrackerCore.Web.Models;
 using BiraIssueTrackerCore.Services.Contracts;
+using BiraIssueTrackerCore.Web.Models.IssueTracker;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BiraIssueTrackerCore.Web.Controllers
@@ -16,7 +17,7 @@ namespace BiraIssueTrackerCore.Web.Controllers
 
 		public ActionResult Index()
 		{
-			var issues = issueService.GetAllIssues();
+			//var issues = issueService.All<IssueHomePageViewModel>();
 
 		    return View();
 	    }

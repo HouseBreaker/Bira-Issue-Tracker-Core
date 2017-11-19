@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using BiraIssueTrackerCore.Data.Models;
-using BiraIssueTrackerCore.Data.Models.Identity;
 
 namespace BiraIssueTrackerCore.Web.Models.IssueTracker
 {
@@ -13,14 +11,18 @@ namespace BiraIssueTrackerCore.Web.Models.IssueTracker
 		
 		public string Description { get; set; }
 		
-		public State State { get; set; }
+		public string State { get; set; }
 		
-		public ApplicationUser Author { get; set; }
+		public string AuthorEmail { get; set; }
 
-		public ApplicationUser Assignee { get; set; }
-		
-		public ICollection<IssueTag> IssueTags { get; set; }
-		
-		public DateTime Date { get; set; }
+		public string AssigneeEmail { get; set; }
+
+	    public DateTime Date { get; set; }
+
+		public ICollection<TagViewModel> Tags { get; set; }
+
+	    public bool UserIsAuthor { get; set; }
+
+		public bool UserIsAssignee { get; set; }
 	}
 }

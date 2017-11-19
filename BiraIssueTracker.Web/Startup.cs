@@ -1,4 +1,5 @@
 ﻿using System;
+using AutoMapper;
 using BiraIssueTrackerCore.Data;
 using BiraIssueTrackerCore.Data.Models.Identity;
 using BiraIssueTrackerCore.Services;
@@ -43,6 +44,7 @@ namespace BiraIssueTrackerCore.Web
 			services.AddTransient<IIssueService, IssueService>();
 
 			services.AddMvc();
+			services.AddAutoMapper();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
