@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace BiraIssueTrackerCore.Web.Models.IssueTracker
 {
@@ -13,8 +14,10 @@ namespace BiraIssueTrackerCore.Web.Models.IssueTracker
 		
 		public string State { get; set; }
 		
+		[DisplayName("Author")]
 		public string AuthorEmail { get; set; }
 
+	    [DisplayName("Assignee")]
 		public string AssigneeEmail { get; set; }
 
 	    public DateTime Date { get; set; }

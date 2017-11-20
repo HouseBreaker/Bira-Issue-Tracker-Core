@@ -3,6 +3,7 @@
     public class IssueHomePageViewModel
     {
 	    public int OpenIssueCount { get; set; }
+
 	    public int AssignedOpenIssuesCount { get; set; }
 	}
 }

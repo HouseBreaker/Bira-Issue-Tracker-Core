@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BiraIssueTrackerCore.Web.Controllers
 {
 	[Authorize]
-	[Route("[controller]/[action]")]
+	//[Route("[controller]/[action]")]
 	public class IssuesController : Controller
 	{
 		private readonly IIssueService issueService;
@@ -21,7 +21,7 @@ namespace BiraIssueTrackerCore.Web.Controllers
 
 		[TempData]
 		public string ErrorMessage { get; set; }
-
+		
 		[HttpGet]
 		public IActionResult Index()
 		{
@@ -35,9 +35,28 @@ namespace BiraIssueTrackerCore.Web.Controllers
 		[Authorize]
 		public IActionResult Mine()
 		{
-			var issues = issueService.All<IssueViewModel>(User.Identity.Name);
+			var issues = issueService.ByAuthor<IssueViewModel>(User.Identity.Name);
+			SetAuthorizationState(issues);
 
 			return View(issues);
+		}
+
+		[HttpGet]
+		[Authorize]
+		public IActionResult AssignedToMe()
+		{
+			var issues = issueService.ByAssignee<IssueViewModel>(User.Identity.Name);
+			SetAuthorizationState(issues);
+
+			return View(issues);
+		}
+
+		[HttpGet]
+		public IActionResult Details(int id)
+		{
+			var issue = issueService.ById<IssueViewModel>(id);
+
+			return View(issue);
 		}
 
 		private void SetAuthorizationState(IEnumerable<IssueViewModel> issues)

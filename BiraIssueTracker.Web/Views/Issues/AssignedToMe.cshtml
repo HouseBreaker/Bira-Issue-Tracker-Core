@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<BiraIssueTrackerCore.Web.Models.IssueTracker.IssueViewModel>
 
 @{
-	ViewData["Title"] = "My issues";
+	ViewData["Title"] = "Assigned to Me";
 }
 
-<h2>My Issues</h2>
+<h2>Assigned to Me</h2>
 
 <p>
 	<a asp-action="New" class="btn btn-success">Submit New</a>
-	<a asp-action="AssignedToMe" class="btn btn-primary">Assigned to me</a>
+	<a asp-action="Mine" class="btn btn-primary">My Issues</a>
 </p>
 
 @Html.Partial("_TablePartial")
