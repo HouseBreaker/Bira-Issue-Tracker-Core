@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BiraIssueTrackerCore.Web", "BiraIssueTracker.Web\BiraIssueTrackerCore.Web.csproj", "{0F08940C-381A-42D0-99F8-F5D7FC78C3EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BiraIssueTrackerCore.Web", "BiraIssueTrackerCore.Web\BiraIssueTrackerCore.Web.csproj", "{0F08940C-381A-42D0-99F8-F5D7FC78C3EB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BiraIssueTrackerCore.Data", "BiraIssueTrackerCore.Data\BiraIssueTrackerCore.Data.csproj", "{1E84DDD6-9E94-496A-8BEE-15DBCCE3AD52}"
 EndProject
