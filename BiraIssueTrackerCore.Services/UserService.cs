@@ -20,5 +20,7 @@ namespace BiraIssueTrackerCore.Services
 			.ProjectTo<TModel>()
 			.SingleOrDefault();
 
+		public bool Exists(string email)
+			=> context.Users.Any(u => u.Email == email);
 	}
 }

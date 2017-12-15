@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using BiraIssueTrackerCore.Models;
 
 namespace BiraIssueTrackerCore.Web.Models.IssueTracker
 {
@@ -12,7 +13,7 @@ namespace BiraIssueTrackerCore.Web.Models.IssueTracker
 		
 		public string Description { get; set; }
 		
-		public string State { get; set; }
+		public State State { get; set; }
 		
 		[DisplayName("Author")]
 		public string AuthorEmail { get; set; }
@@ -24,8 +25,8 @@ namespace BiraIssueTrackerCore.Web.Models.IssueTracker
 
 		public ICollection<TagViewModel> Tags { get; set; }
 
-	    public bool UserIsAuthor { get; set; }
+	    public bool UserCanEdit { get; set; }
 
-		public bool UserIsAssignee { get; set; }
+		public bool UserCanChangeState { get; set; }
 	}
 }

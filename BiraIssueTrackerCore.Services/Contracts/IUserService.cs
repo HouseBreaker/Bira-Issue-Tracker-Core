@@ -2,6 +2,8 @@
 {
 	public interface IUserService
 	{
-		TModel ByEmail<TModel>(string currentUserEmail);
+		TModel ByEmail<TModel>(string email);
+
+		bool Exists(string email);
 	}
 }

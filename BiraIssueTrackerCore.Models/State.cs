@@ -1,10 +1,13 @@
-﻿namespace BiraIssueTrackerCore.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BiraIssueTrackerCore.Models
 {
 	public enum State
 	{
-		InProgress,
 		Open,
-		Fixed,
+		[Display(Name = "In Progress")]
+		InProgress,
+		Done,
 		Closed
 	}
 }

@@ -76,7 +76,7 @@ namespace BiraIssueTrackerCore.Data
 					CreateIssue(context,
 						"negative birthday causes exception",
 						"Adding an author with a birth date the day of which is negative will add the author with a birth date which is the same but the day is non negative",
-						State.Open,
+						State.InProgress,
 						"merry@gmail.com",
 						"gosho@gmail.com",
 						new SortedSet<Tag>
@@ -90,7 +90,7 @@ namespace BiraIssueTrackerCore.Data
 					CreateIssue(context,
 						"no last name causes exception",
 						"Adding an author with a valid first name and date, but no last name throws an unhandled exception \"Last name out of range\" insteaof validating the input before sending it.",
-						State.Open,
+						State.InProgress,
 						"gosho@gmail.com",
 						"admin@gmail.com",
 						new SortedSet<Tag>
@@ -104,7 +104,7 @@ namespace BiraIssueTrackerCore.Data
 					CreateIssue(context,
 						"missing first name causes exception",
 						"Adding an author with a valid last name and date, but no first name throws an unhandled exception \"First name out of range\" instead of validating the input before sending it.",
-						State.Open,
+						State.Done,
 						"pesho@gmail.com",
 						"gosho@gmail.com",
 						new SortedSet<Tag>
@@ -118,7 +118,7 @@ namespace BiraIssueTrackerCore.Data
 					CreateIssue(context,
 						"short first name causes exception",
 						"If first name is too short, the system throws an unhandled exception \"First name out of range\" instead of validating the input before sending it.",
-						State.Open,
+						State.Done,
 						"admin@gmail.com",
 						"admin@gmail.com",
 						new SortedSet<Tag>
@@ -132,7 +132,7 @@ namespace BiraIssueTrackerCore.Data
 					CreateIssue(context,
 						"short last name causes exception",
 						"If last name is too short, the system throws an unhandled exception \"Last name out of range\" instead of validating the input before sending it.",
-						State.Open,
+						State.Done,
 						"merry@gmail.com",
 						"gosho@gmail.com",
 						new SortedSet<Tag>
@@ -146,7 +146,7 @@ namespace BiraIssueTrackerCore.Data
 					CreateIssue(context,
 						"Wrong first name upper limit",
 						"First name upper limit is 239 characters instead of 240",
-						State.Open,
+						State.Closed,
 						"merry@gmail.com",
 						"admin@gmail.com",
 						new SortedSet<Tag>
@@ -160,7 +160,7 @@ namespace BiraIssueTrackerCore.Data
 					CreateIssue(context,
 						"Wrong last name upper limit",
 						"Last name upper limit is 237 characters instead of 240",
-						State.Open,
+						State.Closed,
 						"gosho@gmail.com",
 						"gosho@gmail.com",
 						new SortedSet<Tag>
@@ -174,7 +174,7 @@ namespace BiraIssueTrackerCore.Data
 					CreateIssue(context,
 						"Tags don't work",
 						"Last name upper limit is 237 characters instead of 240",
-						State.Open,
+						State.Closed,
 						"gosho@gmail.com",
 						"gosho@gmail.com",
 						new SortedSet<Tag>

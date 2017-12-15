@@ -40,7 +40,7 @@
 				@issue.Description
 			</td>
 			<td>
-				@issue.State
+				@Html.DisplayFor(m => issue.State)
 			</td>
 			<td>
 				<a asp-controller="Users" asp-action="Profile" asp-route-id="@issue.AuthorEmail">@issue.AuthorEmail</a>
@@ -64,25 +64,25 @@
 				<div class="btn-group flex">
 					<a asp-action="Details" asp-route-id="@issue.Id" class="btn btn-primary">Details</a>
 					
-					@{ var dropdownStateAttribute = !issue.UserIsAssignee && !issue.UserIsAuthor ? "disabled" : "";}
+					@{ var dropdownStateAttribute = issue.UserCanChangeState || issue.UserCanEdit ? "" : "disabled";}
 
 					<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" @dropdownStateAttribute>
 						<span class="caret"></span>
 						<span class="sr-only">Toggle Dropdown</span>
 					</button>
 
-					@if (issue.UserIsAssignee || issue.UserIsAuthor)
+					@if (issue.UserCanChangeState || issue.UserCanEdit)
 					{
 						<ul class="dropdown-menu">
 							@{
-								var linkText = issue.UserIsAssignee && !issue.UserIsAuthor ? "Change state" : "Edit";
+								var linkText = issue.UserCanChangeState && !issue.UserCanEdit ? "Change state" : "Edit";
 							}
 
 							<li>
 								<a asp-action="Edit" asp-route-id="@issue.Id">@linkText</a>
 							</li>
 
-							@if (issue.UserIsAuthor)
+							@if (issue.UserCanEdit)
 							{
 								<li>
 									<a asp-action="Delete" asp-route-id="@issue.Id">Delete</a>

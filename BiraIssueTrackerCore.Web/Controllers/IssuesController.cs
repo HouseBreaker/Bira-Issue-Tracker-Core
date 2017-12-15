@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using BiraIssueTrackerCore.Models;
 using BiraIssueTrackerCore.Services.Contracts;
 using BiraIssueTrackerCore.Web.Models.IssueTracker;
 using Microsoft.AspNetCore.Authorization;
@@ -9,17 +11,18 @@ namespace BiraIssueTrackerCore.Web.Controllers
 	public class IssuesController : Controller
 	{
 		private readonly IIssueService issueService;
-		public IssuesController(IIssueService issueService)
+		private readonly IUserService userService;
+
+		public IssuesController(IIssueService issueService, IUserService userService)
 		{
 			this.issueService = issueService;
+			this.userService = userService;
 		}
 
-		[TempData]
-		public string ErrorMessage { get; set; }
-		
 		public IActionResult Index()
 		{
-			var issues = issueService.All<IssueViewModel>().ToArray();
+			var issues = issueService.All<IssueViewModel>()
+				.ToArray();
 			SetAuthorizationState(issues);
 
 			return View(issues);
@@ -60,7 +63,52 @@ namespace BiraIssueTrackerCore.Web.Controllers
 
 			return View(issues);
 		}
-		
+
+		[Authorize]
+		public IActionResult New()
+		{
+			return View();
+		}
+
+		[Authorize]
+		[HttpPost]
+		public IActionResult New(IssueCreateViewModel model)
+		{
+			if (!ModelState.IsValid)
+			{
+				return RedirectToAction("Index");
+			}
+
+			var stateIsValid = Enum.TryParse<State>(model.State, out var state);
+			if (!stateIsValid)
+			{
+				return RedirectToAction("Index");
+			}
+
+			var assigneeExists = userService.Exists(model.AssigneeEmail);
+			if (!assigneeExists)
+			{
+				return RedirectToAction("Index");
+			}
+
+			var tagNames = model.Tags
+				.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
+				.Select(a => a.Trim())
+				.ToArray();
+
+			var issue = issueService.Create(
+				model.Title,
+				model.Description,
+				state,
+				User.Identity.Name,
+				model.AssigneeEmail,
+				DateTime.Now,
+				tagNames
+			);
+
+			return RedirectToAction("Details", new { id = issue.Id });
+		}
+
 		[Authorize]
 		public IActionResult Delete(int id)
 		{
@@ -103,15 +151,8 @@ namespace BiraIssueTrackerCore.Web.Controllers
 				var userIsAuthor = issue.AuthorEmail == User.Identity.Name;
 				var userIsAssignee = issue.AssigneeEmail == User.Identity.Name;
 
-				var userIsAuthorizedToEdit = isAdmin || userIsAuthor || userIsAssignee;
-
-				if (!userIsAuthorizedToEdit)
-				{
-					continue;
-				}
-
-				issue.UserIsAuthor = userIsAuthor;
-				issue.UserIsAssignee = userIsAssignee;
+				issue.UserCanEdit = userIsAuthor || isAdmin;
+				issue.UserCanChangeState = userIsAssignee;
 			}
 		}
 	}

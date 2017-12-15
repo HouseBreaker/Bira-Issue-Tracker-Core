@@ -83,9 +83,9 @@
 			}
 		}*@
 	@{
-		var editText = Model.UserIsAssignee ? "Change State" : "Edit";
+		var editText = Model.UserCanChangeState ? "Change State" : "Edit";
 
-		if (Model.UserIsAuthor)
+		if (Model.UserCanEdit)
 		{
 			editText = "Edit";
 		}
@@ -94,7 +94,7 @@
 	<a asp-action="Index" class="btn btn-default">Back to List</a>
 	<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">@editText</a>
 	
-	@if (Model.UserIsAuthor)
+	@if (Model.UserCanEdit)
 	{
 		<a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
 	}

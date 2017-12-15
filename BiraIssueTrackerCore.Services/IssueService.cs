@@ -12,29 +12,40 @@ namespace BiraIssueTrackerCore.Services
 	public class IssueService : IIssueService
 	{
 		private readonly IssueTrackerDbContext context;
+		private readonly ITagService tagService;
 
-		public IssueService(IssueTrackerDbContext context)
+		public IssueService(IssueTrackerDbContext context, ITagService tagService)
 		{
 			this.context = context;
+			this.tagService = tagService;
 		}
 
-		public void Create(
+		public Issue Create(
 			string title,
 			string description,
 			State state,
-			string authorId,
-			string assigneeId,
+			string authorEmail,
+			string assigneeEmail,
 			DateTime date,
-			IEnumerable<Tag> tags)
+			IEnumerable<string> tagNames)
 		{
+			var authorId = context.Users.SingleOrDefault(u => u.Email == authorEmail)?.Id;
+			var assigneeId = context.Users.SingleOrDefault(u => u.Email == assigneeEmail)?.Id;
+
+			var tags = tagNames
+				.Select(tagName => tagService.ByName(tagName) ?? tagService.Create(tagName))
+				.ToArray();
+
 			var issue = new Issue(title, description, state, authorId, assigneeId, date, tags);
 
 			context.Issues.Add(issue);
 
 			context.SaveChanges();
+
+			return issue;
 		}
 
-		public void Edit(
+		public Issue Edit(
 			int id,
 			string title = null,
 			string description = null,
@@ -48,9 +59,13 @@ namespace BiraIssueTrackerCore.Services
 
 		public void Delete(int id)
 		{
-			var issue = context.Issues.Find(id);
+			var issue = context.Issues.Where(i => i.Id == id);
 
-			context.Issues.Remove(issue);
+			var tagsToRemove = issue.SelectMany(i => i.IssueTags.Where(it => it.Tag.IssueTags.Count == 1)).Select(it => it.Tag).ToArray();
+
+			context.Tags.RemoveRange(tagsToRemove);
+
+			context.Issues.Remove(issue.SingleOrDefault());
 
 			context.SaveChanges();
 		}

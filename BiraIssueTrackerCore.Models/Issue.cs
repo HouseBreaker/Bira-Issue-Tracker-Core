@@ -31,22 +31,18 @@ namespace BiraIssueTrackerCore.Models
 		public int Id { get; set; }
 
 		[Required]
-		[StringLength(200)]
 		public string Title { get; set; }
-
-		[DataType(DataType.MultilineText)]
+		
 		public string Description { get; set; }
 
 		[Required]
 		public State State { get; set; }
-
-		[ForeignKey("Author")]
+		
 		public string AuthorId { get; set; }
 
 		[Required]
 		public ApplicationUser Author { get; set; }
-
-		[ForeignKey("Assignee")]
+		
 		public string AssigneeId { get; set; }
 
 		public ApplicationUser Assignee { get; set; }

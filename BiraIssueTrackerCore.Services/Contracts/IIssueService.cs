@@ -7,15 +7,15 @@ namespace BiraIssueTrackerCore.Services.Contracts
 {
     public interface IIssueService
     {
-	    void Create(string title,
+	    Issue Create(string title,
 		    string description,
 		    State state,
 		    string authorId,
 		    string assigneeId,
 		    DateTime date,
-		    IEnumerable<Tag> tags);
+		    IEnumerable<string> tagNames);
 
-	    void Edit(int id,
+	    Issue Edit(int id,
 			string title = null,
 			string description = null,
 			State state = default(State),

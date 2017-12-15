@@ -43,6 +43,7 @@ namespace BiraIssueTrackerCore.Web
 			services.AddTransient<IEmailSender, EmailSender>();
 			services.AddTransient<IIssueService, IssueService>();
 			services.AddTransient<IUserService, UserService>();
+			services.AddTransient<ITagService, TagService>();
 
 			services.AddMvc();
 			services.AddAutoMapper();
