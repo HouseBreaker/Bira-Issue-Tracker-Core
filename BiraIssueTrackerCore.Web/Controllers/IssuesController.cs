@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using BiraIssueTrackerCore.Data.Models;
 using BiraIssueTrackerCore.Services.Contracts;
 using BiraIssueTrackerCore.Web.Models.IssueTracker;
 using Microsoft.AspNetCore.Authorization;
@@ -8,12 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BiraIssueTrackerCore.Web.Controllers
 {
-	[Authorize]
-	//[Route("[controller]/[action]")]
 	public class IssuesController : Controller
 	{
 		private readonly IIssueService issueService;
-
 		public IssuesController(IIssueService issueService)
 		{
 			this.issueService = issueService;
@@ -57,6 +52,16 @@ namespace BiraIssueTrackerCore.Web.Controllers
 			var issue = issueService.ById<IssueViewModel>(id);
 
 			return View(issue);
+		}
+
+		public IActionResult Tagged(string id)
+		{
+			var issues = issueService.ByTag<IssueViewModel>(id);
+			SetAuthorizationState(issues);
+
+			ViewData["tagSlug"] = id;
+
+			return View(issues);
 		}
 
 		private void SetAuthorizationState(IEnumerable<IssueViewModel> issues)

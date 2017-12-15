@@ -11,10 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\BiraIssueTrackerCore.Data\BiraIssueTrackerCore.Data.csproj" />
   </ItemGroup>
 

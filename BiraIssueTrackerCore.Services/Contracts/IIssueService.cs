@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Runtime.InteropServices;
 using BiraIssueTrackerCore.Data.Models;
 
 namespace BiraIssueTrackerCore.Services.Contracts
@@ -33,5 +31,7 @@ namespace BiraIssueTrackerCore.Services.Contracts
 	    IEnumerable<TModel> ByAuthor<TModel>(string authorEmail);
 
 	    IEnumerable<TModel> ByAssignee<TModel>(string assigneeEmail);
+
+	    IEnumerable<TModel> ByTag<TModel>(string tagSlug);
     }
 }

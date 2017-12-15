@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using BiraIssueTrackerCore.Data;
 using BiraIssueTrackerCore.Data.Models;
@@ -35,8 +34,14 @@ namespace BiraIssueTrackerCore.Services
 			context.SaveChanges();
 		}
 
-		public void Edit(int id, string title = null, string description = null, State state = State.New, string authorEmail = null,
-			string assigneeEmail = null, DateTime date = new DateTime())
+		public void Edit(
+			int id,
+			string title = null,
+			string description = null,
+			State state = State.New,
+			string authorEmail = null,
+			string assigneeEmail = null,
+			DateTime date = new DateTime())
 		{
 			throw new NotImplementedException();
 		}
@@ -51,56 +56,29 @@ namespace BiraIssueTrackerCore.Services
 		}
 
 		public TModel ById<TModel>(int id)
-		{
-			return this.context
-				.Issues
-				.Where(i => i.Id == id)
-				.ProjectTo<TModel>()
+			=> By<TModel>(i => i.Id == id)
 				.Single();
-		}
 
 		public IEnumerable<TModel> All<TModel>()
-		{
-			return By<TModel>(i => true)
+			=> By<TModel>()
 				.ToArray();
-		}
 
 		public IEnumerable<TModel> ByAuthor<TModel>(string authorEmail)
-		{
-			var query = this.context.Issues.AsQueryable();
-
-			if (authorEmail != null)
-			{
-				return By<TModel>(i => i.Author.Email == authorEmail).ToArray();
-			}
-
-			return query
-				.ProjectTo<TModel>()
+			=> By<TModel>(i => i.Author.Email == authorEmail)
 				.ToArray();
-		}
 
 		public IEnumerable<TModel> ByAssignee<TModel>(string assigneeEmail)
-		{
-			var query = this.context.Issues.AsQueryable();
-
-			if (assigneeEmail != null)
-			{
-				return By<TModel>(i => i.Assignee.Email == assigneeEmail).ToArray();
-			}
-
-			return query
-				.ProjectTo<TModel>()
+			=> By<TModel>(i => i.Assignee.Email == assigneeEmail)
 				.ToArray();
-		}
 
-		private IEnumerable<TModel> By<TModel>(Expression<Func<Issue, bool>> predicate)
-		{
-			var query = this.context.Issues.AsQueryable();
+		public IEnumerable<TModel> ByTag<TModel>(string tagSlug)
+			=> By<TModel>(i => i.IssueTags.Any(it => it.Tag.Slug == tagSlug))
+				.ToArray();
 
-			query = query.Where(predicate);
-
-			return query
+		private IEnumerable<TModel> By<TModel>(Expression<Func<Issue, bool>> predicate = null)
+			=> this.context.Issues
+				.AsQueryable()
+				.Where(predicate ?? (i => true))
 				.ProjectTo<TModel>();
-		}
 	}
 }
