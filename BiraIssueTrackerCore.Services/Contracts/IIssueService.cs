@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using BiraIssueTrackerCore.Data.Models;
+using System.Linq;
+using BiraIssueTrackerCore.Models;
 
 namespace BiraIssueTrackerCore.Services.Contracts
 {
@@ -24,14 +25,20 @@ namespace BiraIssueTrackerCore.Services.Contracts
 
 	    void Delete(int id);
 
-	    TModel ById<TModel>(int id);
+	    bool Exists(int id);
 
-		IEnumerable<TModel> All<TModel>();
+		TModel ById<TModel>(int id);
 
-	    IEnumerable<TModel> ByAuthor<TModel>(string authorEmail);
+		IQueryable<TModel> All<TModel>();
 
-	    IEnumerable<TModel> ByAssignee<TModel>(string assigneeEmail);
+	    IQueryable<TModel> ByState<TModel>(State state);
 
-	    IEnumerable<TModel> ByTag<TModel>(string tagSlug);
+	    IQueryable<TModel> ByAuthor<TModel>(string authorEmail);
+
+	    IQueryable<TModel> ByAssignee<TModel>(string assigneeEmail);
+
+	    IQueryable<TModel> ByTag<TModel>(string tagSlug);
+
+		IQueryable<TModel> ByStates<TModel>(params State[] states);
     }
 }

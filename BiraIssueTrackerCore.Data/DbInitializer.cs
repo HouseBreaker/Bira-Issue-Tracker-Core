@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BiraIssueTrackerCore.Data.Models;
-using BiraIssueTrackerCore.Data.Models.Identity;
+using BiraIssueTrackerCore.Models;
+using BiraIssueTrackerCore.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

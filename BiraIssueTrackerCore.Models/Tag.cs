@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 
-namespace BiraIssueTrackerCore.Data.Models
+namespace BiraIssueTrackerCore.Models
 {
 	public class Tag : IComparable
 	{

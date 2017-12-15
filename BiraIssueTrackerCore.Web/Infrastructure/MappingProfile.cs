@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using BiraIssueTrackerCore.Data.Models;
+using BiraIssueTrackerCore.Models;
 using BiraIssueTrackerCore.Web.Models.IssueTracker;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace BiraIssueTrackerCore.Web.Infrastructure
 {

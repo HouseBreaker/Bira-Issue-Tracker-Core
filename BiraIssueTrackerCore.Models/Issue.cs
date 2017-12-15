@@ -1,11 +1,11 @@
-﻿using BiraIssueTrackerCore.Data.Models.Identity;
+﻿using BiraIssueTrackerCore.Models.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
-namespace BiraIssueTrackerCore.Data.Models
+namespace BiraIssueTrackerCore.Models
 {
 	public class Issue
 	{

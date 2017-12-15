@@ -2,8 +2,11 @@
 {
     public class IssueHomePageViewModel
     {
-	    public int OpenIssueCount { get; set; }
+	    public string Username { get; set; }
+
+		public int OpenIssueCount { get; set; }
 
 	    public int AssignedOpenIssuesCount { get; set; }
-	}
+
+    }
 }

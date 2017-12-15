@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using BiraIssueTrackerCore.Services.Contracts;
 using BiraIssueTrackerCore.Web.Models.IssueTracker;
 using Microsoft.AspNetCore.Authorization;
@@ -17,54 +17,73 @@ namespace BiraIssueTrackerCore.Web.Controllers
 		[TempData]
 		public string ErrorMessage { get; set; }
 		
-		[HttpGet]
 		public IActionResult Index()
 		{
-			var issues = issueService.All<IssueViewModel>();
+			var issues = issueService.All<IssueViewModel>().ToArray();
 			SetAuthorizationState(issues);
 
 			return View(issues);
 		}
 
-		[HttpGet]
 		[Authorize]
 		public IActionResult Mine()
 		{
-			var issues = issueService.ByAuthor<IssueViewModel>(User.Identity.Name);
+			var issues = issueService.ByAuthor<IssueViewModel>(User.Identity.Name).ToArray();
 			SetAuthorizationState(issues);
 
 			return View(issues);
 		}
 
-		[HttpGet]
 		[Authorize]
 		public IActionResult AssignedToMe()
 		{
-			var issues = issueService.ByAssignee<IssueViewModel>(User.Identity.Name);
+			var issues = issueService.ByAssignee<IssueViewModel>(User.Identity.Name).ToArray();
 			SetAuthorizationState(issues);
 
 			return View(issues);
 		}
 
-		[HttpGet]
 		public IActionResult Details(int id)
 		{
 			var issue = issueService.ById<IssueViewModel>(id);
+			SetAuthorizationState(issue);
 
 			return View(issue);
 		}
 
 		public IActionResult Tagged(string id)
 		{
-			var issues = issueService.ByTag<IssueViewModel>(id);
+			var issues = issueService.ByTag<IssueViewModel>(id).ToArray();
 			SetAuthorizationState(issues);
 
 			ViewData["tagSlug"] = id;
 
 			return View(issues);
 		}
+		
+		[Authorize]
+		public IActionResult Delete(int id)
+		{
+			var issue = issueService.ById<IssueViewModel>(id);
 
-		private void SetAuthorizationState(IEnumerable<IssueViewModel> issues)
+			return View(issue);
+		}
+
+		[HttpPost]
+		[Authorize]
+		public IActionResult DeleteConfirm(int id)
+		{
+			if (!issueService.Exists(id))
+			{
+				return RedirectToAction("Index");
+			}
+
+			issueService.Delete(id);
+
+			return RedirectToAction("Index");
+		}
+
+		private void SetAuthorizationState(params IssueViewModel[] issues)
 		{
 			foreach (var issue in issues)
 			{

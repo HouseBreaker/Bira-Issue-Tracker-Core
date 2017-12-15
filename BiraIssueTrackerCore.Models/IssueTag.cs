@@ -1,4 +1,4 @@
-﻿namespace BiraIssueTrackerCore.Data.Models
+﻿namespace BiraIssueTrackerCore.Models
 {
 	public class IssueTag
 	{

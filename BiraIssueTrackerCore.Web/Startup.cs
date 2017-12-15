@@ -1,7 +1,7 @@
 ﻿using System;
 using AutoMapper;
 using BiraIssueTrackerCore.Data;
-using BiraIssueTrackerCore.Data.Models.Identity;
+using BiraIssueTrackerCore.Models.Identity;
 using BiraIssueTrackerCore.Services;
 using BiraIssueTrackerCore.Services.Contracts;
 using Microsoft.AspNetCore.Builder;
@@ -42,6 +42,7 @@ namespace BiraIssueTrackerCore.Web
 			// Add application services.
 			services.AddTransient<IEmailSender, EmailSender>();
 			services.AddTransient<IIssueService, IssueService>();
+			services.AddTransient<IUserService, UserService>();
 
 			services.AddMvc();
 			services.AddAutoMapper();

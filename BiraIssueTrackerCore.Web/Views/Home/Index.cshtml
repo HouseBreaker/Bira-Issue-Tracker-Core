@@ -1,4 +1,5 @@
-﻿@{
+﻿@model BiraIssueTrackerCore.Web.Models.IssueTracker.IssueHomePageViewModel
+@{
     ViewData["Title"] = User.Identity.IsAuthenticated ? "Dashboard" : "BIRA Issue Tracker";
 }
 
@@ -28,9 +29,9 @@
 	{
 		string username = ViewBag.Username;
 
-		int numberOfIssues = 999; // ViewBag.UnresolvedIssuesCount;
+		int numberOfIssues = Model.OpenIssueCount;
 
-		int userAssignedIssuesCount = 999; // ViewBag.UserAssignedUnresolvedIssuesCount;
+		int userAssignedIssuesCount = Model.AssignedOpenIssuesCount;
 		var userAssignedIssuesText = userAssignedIssuesCount == 0 ? "none" : $"<a href=\"/Issues/AssignedToMe\">{userAssignedIssuesCount}</a>";
 
 		var workOrRest = userAssignedIssuesCount > 0 ? "get to work" : "take a break";

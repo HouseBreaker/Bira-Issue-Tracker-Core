@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BiraIssueTrackerCore.Data\BiraIssueTrackerCore.Data.csproj" />
+    <ProjectReference Include="..\BiraIssueTrackerCore.Models\BiraIssueTrackerCore.Models.csproj" />
     <ProjectReference Include="..\BiraIssueTrackerCore.Services\BiraIssueTrackerCore.Services.csproj" />
   </ItemGroup>
 

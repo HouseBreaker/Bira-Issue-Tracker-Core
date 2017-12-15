@@ -70,19 +70,34 @@
 	</dl>
 </div>
 <p>
-
 	@*@{
-		var returnToAction = (string)ViewBag.ReturnTo;
-	}
-	@if (User.Identity.IsAuthenticated)
-	{
-		@Html.ActionLink(User.Identity.GetUserId() == Model.Author.Id || User.IsInRole("Administrators") ? "Edit" : "Change State", "Edit", new { id = Model.Id, returnTo = returnToAction }, new { @class = "btn btn-primary" })
-
-		if (Model.Author.Id == User.Identity.GetUserId() || User.IsInRole("Administrators"))
-		{
-			<span>@Html.ActionLink("Delete", "Delete", new { id = Model.Id, returnTo = returnToAction }, new { @class = "btn btn-danger" })</span>
+			var returnToAction = (string)ViewBag.ReturnTo;
 		}
-	}*@
+		@if (User.Identity.IsAuthenticated)
+		{
+			@Html.ActionLink(User.Identity.GetUserId() == Model.Author.Id || User.IsInRole("Administrators") ? "Edit" : "Change State", "Edit", new { id = Model.Id, returnTo = returnToAction }, new { @class = "btn btn-primary" })
+
+			if (Model.Author.Id == User.Identity.GetUserId() || User.IsInRole("Administrators"))
+			{
+				<span>@Html.ActionLink("Delete", "Delete", new { id = Model.Id, returnTo = returnToAction }, new { @class = "btn btn-danger" })</span>
+			}
+		}*@
+	@{
+		var editText = Model.UserIsAssignee ? "Change State" : "Edit";
+
+		if (Model.UserIsAuthor)
+		{
+			editText = "Edit";
+		}
+	}
 
 	<a asp-action="Index" class="btn btn-default">Back to List</a>
+	<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">@editText</a>
+	
+	@if (Model.UserIsAuthor)
+	{
+		<a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+	}
+
+
 </p>

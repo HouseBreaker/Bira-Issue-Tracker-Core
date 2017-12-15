@@ -17,7 +17,7 @@ namespace BiraIssueTrackerCore.Data.Migrations
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("BiraIssueTrackerCore.Data.Models.Identity.ApplicationUser", b =>
+            modelBuilder.Entity("BiraIssueTrackerCore.Models.Identity.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -70,7 +70,7 @@ namespace BiraIssueTrackerCore.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("BiraIssueTrackerCore.Data.Models.Issue", b =>
+            modelBuilder.Entity("BiraIssueTrackerCore.Models.Issue", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -99,7 +99,7 @@ namespace BiraIssueTrackerCore.Data.Migrations
                     b.ToTable("Issues");
                 });
 
-            modelBuilder.Entity("BiraIssueTrackerCore.Data.Models.IssueTag", b =>
+            modelBuilder.Entity("BiraIssueTrackerCore.Models.IssueTag", b =>
                 {
                     b.Property<int>("IssueId");
 
@@ -112,7 +112,7 @@ namespace BiraIssueTrackerCore.Data.Migrations
                     b.ToTable("IssueTags");
                 });
 
-            modelBuilder.Entity("BiraIssueTrackerCore.Data.Models.Tag", b =>
+            modelBuilder.Entity("BiraIssueTrackerCore.Models.Tag", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -238,26 +238,26 @@ namespace BiraIssueTrackerCore.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("BiraIssueTrackerCore.Data.Models.Issue", b =>
+            modelBuilder.Entity("BiraIssueTrackerCore.Models.Issue", b =>
                 {
-                    b.HasOne("BiraIssueTrackerCore.Data.Models.Identity.ApplicationUser", "Assignee")
+                    b.HasOne("BiraIssueTrackerCore.Models.Identity.ApplicationUser", "Assignee")
                         .WithMany()
                         .HasForeignKey("AssigneeId");
 
-                    b.HasOne("BiraIssueTrackerCore.Data.Models.Identity.ApplicationUser", "Author")
+                    b.HasOne("BiraIssueTrackerCore.Models.Identity.ApplicationUser", "Author")
                         .WithMany()
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("BiraIssueTrackerCore.Data.Models.IssueTag", b =>
+            modelBuilder.Entity("BiraIssueTrackerCore.Models.IssueTag", b =>
                 {
-                    b.HasOne("BiraIssueTrackerCore.Data.Models.Issue", "Issue")
+                    b.HasOne("BiraIssueTrackerCore.Models.Issue", "Issue")
                         .WithMany("IssueTags")
                         .HasForeignKey("IssueId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("BiraIssueTrackerCore.Data.Models.Tag", "Tag")
+                    b.HasOne("BiraIssueTrackerCore.Models.Tag", "Tag")
                         .WithMany("IssueTags")
                         .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -273,7 +273,7 @@ namespace BiraIssueTrackerCore.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("BiraIssueTrackerCore.Data.Models.Identity.ApplicationUser")
+                    b.HasOne("BiraIssueTrackerCore.Models.Identity.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -281,7 +281,7 @@ namespace BiraIssueTrackerCore.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("BiraIssueTrackerCore.Data.Models.Identity.ApplicationUser")
+                    b.HasOne("BiraIssueTrackerCore.Models.Identity.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -294,7 +294,7 @@ namespace BiraIssueTrackerCore.Data.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("BiraIssueTrackerCore.Data.Models.Identity.ApplicationUser")
+                    b.HasOne("BiraIssueTrackerCore.Models.Identity.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -302,7 +302,7 @@ namespace BiraIssueTrackerCore.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("BiraIssueTrackerCore.Data.Models.Identity.ApplicationUser")
+                    b.HasOne("BiraIssueTrackerCore.Models.Identity.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

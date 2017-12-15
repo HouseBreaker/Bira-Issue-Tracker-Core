@@ -1,5 +1,5 @@
-﻿using BiraIssueTrackerCore.Data.Models;
-using BiraIssueTrackerCore.Data.Models.Identity;
+﻿using BiraIssueTrackerCore.Models;
+using BiraIssueTrackerCore.Models.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
