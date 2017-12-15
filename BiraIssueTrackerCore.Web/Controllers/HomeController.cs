@@ -23,6 +23,11 @@ namespace BiraIssueTrackerCore.Web.Controllers
 
 		public ActionResult Index()
 		{
+			if (!User.Identity.IsAuthenticated)
+			{
+				return View();
+			}
+
 			var currentUserEmail = User.Identity.Name;
 
 			var states = new[] { State.Open, State.InProgress };

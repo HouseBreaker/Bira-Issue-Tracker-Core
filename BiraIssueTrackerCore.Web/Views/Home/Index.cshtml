@@ -6,7 +6,7 @@
 <div class="jumbotron">
 	<div class="jumbo-logo center-block text-center">
 		<div class="beer-and-bubbles">
-			<img src="~/Images/BIRA_Logo_nobubbles.png" alt="BIRA Logo" class="img-responsive" />
+			<img src="~/Images/BIRA_Logo_nobubbles_slogan.png" alt="BIRA Logo" class="img-responsive" />
 			<div class="bubble1">
 				<div class="bubbleReflection"></div>
 			</div>
@@ -27,11 +27,11 @@
 	}
 	else
 	{
-		string username = ViewBag.Username;
+		var username = Model.Username;
 
-		int numberOfIssues = Model.OpenIssueCount;
+		var numberOfIssues = Model.OpenIssueCount;
 
-		int userAssignedIssuesCount = Model.AssignedOpenIssuesCount;
+		var userAssignedIssuesCount = Model.AssignedOpenIssuesCount;
 		var userAssignedIssuesText = userAssignedIssuesCount == 0 ? "none" : $"<a href=\"/Issues/AssignedToMe\">{userAssignedIssuesCount}</a>";
 
 		var workOrRest = userAssignedIssuesCount > 0 ? "get to work" : "take a break";

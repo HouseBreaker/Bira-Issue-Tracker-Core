@@ -64,6 +64,11 @@ namespace BiraIssueTrackerCore.Web.Controllers
 		[Authorize]
 		public IActionResult Delete(int id)
 		{
+			if (!issueService.Exists(id))
+			{
+				return RedirectToAction("Index");
+			}
+
 			var issue = issueService.ById<IssueViewModel>(id);
 
 			return View(issue);
