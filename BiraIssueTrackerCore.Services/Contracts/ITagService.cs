@@ -1,4 +1,5 @@
-﻿using BiraIssueTrackerCore.Models;
+﻿using System.Linq;
+using BiraIssueTrackerCore.Models;
 
 namespace BiraIssueTrackerCore.Services.Contracts
 {
@@ -9,5 +10,7 @@ namespace BiraIssueTrackerCore.Services.Contracts
 		Tag ByName(string name);
 
 		Tag BySlug(string slug);
+
+		IQueryable<TModel> All<TModel>();
     }
 }

@@ -56,14 +56,17 @@ namespace BiraIssueTrackerCore.Services
 		{
 			throw new NotImplementedException();
 		}
-
+		
 		public void Delete(int id)
 		{
 			var issue = context.Issues.Where(i => i.Id == id);
 
-			var tagsToRemove = issue.SelectMany(i => i.IssueTags.Where(it => it.Tag.IssueTags.Count == 1)).Select(it => it.Tag).ToArray();
+			var tagsToPrune = issue
+				.SelectMany(i => i.IssueTags.Where(it => it.Tag.IssueTags.Count == 1))
+				.Select(it => it.Tag)
+				.ToArray();
 
-			context.Tags.RemoveRange(tagsToRemove);
+			context.Tags.RemoveRange(tagsToPrune);
 
 			context.Issues.Remove(issue.SingleOrDefault());
 

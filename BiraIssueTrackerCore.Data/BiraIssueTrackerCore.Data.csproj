@@ -20,8 +20,4 @@
     <ProjectReference Include="..\BiraIssueTrackerCore.Models\BiraIssueTrackerCore.Models.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
 </Project>

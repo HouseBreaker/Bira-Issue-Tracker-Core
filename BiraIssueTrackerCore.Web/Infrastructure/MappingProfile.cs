@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using AutoMapper;
 using BiraIssueTrackerCore.Models;
 using BiraIssueTrackerCore.Web.Models.IssueTracker;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace BiraIssueTrackerCore.Web.Infrastructure
 {
@@ -11,26 +9,18 @@ namespace BiraIssueTrackerCore.Web.Infrastructure
 	{
 		public MappingProfile()
 		{
-			//CreateMap<IEnumerable<Issue>, IssueHomePageViewModel>()
-			//	.ForMember(
-			//		ihvm => ihvm.OpenIssueCount,
-			//		cfg => cfg.MapFrom(
-			//			issues => issues.Count(i => i.State == State.Open)
-			//		)
-			//	)
-			//	.ForMember(
-			//		ihvm => ihvm.AssignedOpenIssuesCount,
-			//		cfg => cfg.MapFrom(
-			//			issues => 999
-			//		)
-			//	);
-
 			CreateMap<Issue, IssueViewModel>()
 				.ForMember(
 					ivm => ivm.Tags,
 					cfg => cfg.MapFrom(
 						issue => issue.IssueTags.Select(it => it.Tag)
 					)
+				);
+
+			CreateMap<Tag, TagListViewModel>()
+				.ForMember(
+					tlvm => tlvm.IssuesCount,
+					cfg => cfg.MapFrom(tag => tag.IssueTags.Count)
 				);
 		}
 	}

@@ -15,10 +15,10 @@ namespace BiraIssueTrackerCore.Web.Models.IssueTracker
 		
 		public State State { get; set; }
 		
-		[DisplayName("Author")]
+		[DisplayName("Created by")]
 		public string AuthorEmail { get; set; }
 
-	    [DisplayName("Assignee")]
+	    [DisplayName("Assigned to")]
 		public string AssigneeEmail { get; set; }
 
 	    public DateTime Date { get; set; }

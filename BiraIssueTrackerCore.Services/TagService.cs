@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using AutoMapper.QueryableExtensions;
 using BiraIssueTrackerCore.Data;
 using BiraIssueTrackerCore.Models;
 using BiraIssueTrackerCore.Services.Contracts;
@@ -30,5 +31,8 @@ namespace BiraIssueTrackerCore.Services
 
 		public Tag BySlug(string slug)
 			=> context.Tags.SingleOrDefault(t => t.Slug == slug);
+
+		public IQueryable<TModel> All<TModel>()
+			=> context.Tags.AsQueryable().ProjectTo<TModel>();
 	}
 }

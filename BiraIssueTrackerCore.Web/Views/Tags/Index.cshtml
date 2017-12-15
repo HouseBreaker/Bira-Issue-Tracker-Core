@@ -1,0 +1,43 @@
+﻿@model IEnumerable<BiraIssueTrackerCore.Web.Models.IssueTracker.TagListViewModel>
+@{
+	ViewData["Title"] = "Tags";
+}
+<h2>Tags</h2>
+
+<table class="table table-striped">
+	<tr>
+		<th>
+			@Html.DisplayNameFor(model => model.Name)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Slug)
+		</th>
+		<th>
+			Number of issues
+		</th>
+	</tr>
+
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.Name)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Slug)
+			</td>
+			<td>
+				@if (item.IssuesCount > 0)
+				{
+					<a asp-controller="Issues" asp-action="Tagged" asp-route-id="@item.Slug">@item.IssuesCount</a>
+				}
+				else
+				{
+					@:None
+				}
+
+			</td>
+		</tr>
+	}
+
+</table>
