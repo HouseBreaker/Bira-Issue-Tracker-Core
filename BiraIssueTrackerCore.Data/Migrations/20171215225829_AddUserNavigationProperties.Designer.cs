@@ -12,9 +12,10 @@ using System;
 namespace BiraIssueTrackerCore.Data.Migrations
 {
     [DbContext(typeof(IssueTrackerDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171215225829_AddUserNavigationProperties")]
+    partial class AddUserNavigationProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

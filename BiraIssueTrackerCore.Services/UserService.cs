@@ -16,11 +16,14 @@ namespace BiraIssueTrackerCore.Services
 
 		public TModel ByEmail<TModel>(string email)
 			=> context.Users
-			.Where(u => u.Email == email)
-			.ProjectTo<TModel>()
-			.SingleOrDefault();
+				.Where(u => u.Email == email)
+				.ProjectTo<TModel>()
+				.SingleOrDefault();
 
 		public bool Exists(string email)
 			=> context.Users.Any(u => u.Email == email);
+
+		public IQueryable<TModel> All<TModel>()
+			=> context.Users.AsQueryable().ProjectTo<TModel>();
 	}
 }

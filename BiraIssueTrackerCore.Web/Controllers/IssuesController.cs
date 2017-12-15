@@ -136,6 +136,34 @@ namespace BiraIssueTrackerCore.Web.Controllers
 			return RedirectToAction("Index");
 		}
 
+		public IActionResult By(string id)
+		{
+			if (!userService.Exists(id))
+			{
+				return RedirectToAction("Index");
+			}
+
+			var issues = issueService.ByAuthor<IssueViewModel>(id);
+
+			ViewData["Email"] = id;
+
+			return View(issues);
+		}
+
+		public IActionResult AssignedTo(string id)
+		{
+			if (!userService.Exists(id))
+			{
+				return RedirectToAction("Index");
+			}
+
+			var issues = issueService.ByAssignee<IssueViewModel>(id);
+
+			ViewData["Email"] = id;
+
+			return View(issues);
+		}
+
 		private void SetAuthorizationState(params IssueViewModel[] issues)
 		{
 			foreach (var issue in issues)

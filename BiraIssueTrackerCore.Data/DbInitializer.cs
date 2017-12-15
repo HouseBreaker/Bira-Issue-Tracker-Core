@@ -18,6 +18,8 @@ namespace BiraIssueTrackerCore.Data
 			{
 				var context = serviceScope.ServiceProvider.GetService<IssueTrackerDbContext>();
 
+				context.Database.Migrate();
+
 				if (context.Database.GetPendingMigrations().Any())
 				{
 					return;

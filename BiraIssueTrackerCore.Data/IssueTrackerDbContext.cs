@@ -23,6 +23,16 @@ namespace BiraIssueTrackerCore.Data
 			builder.Entity<IssueTag>()
 				.ToTable("IssueTags")
 				.HasKey(it => new { it.IssueId, it.TagId });
+
+			builder.Entity<ApplicationUser>()
+				.HasMany(u => u.CreatedIssues)
+				.WithOne(i => i.Author)
+				.HasForeignKey(i => i.AuthorId);
+
+			builder.Entity<ApplicationUser>()
+				.HasMany(u => u.AssignedIssues)
+				.WithOne(i => i.Assignee)
+				.HasForeignKey(i => i.AssigneeId);
 		}
 	}
 }

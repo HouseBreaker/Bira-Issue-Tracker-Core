@@ -1,0 +1,45 @@
+﻿@model IEnumerable<BiraIssueTrackerCore.Web.Models.IssueTracker.UserListViewModel>
+@{
+	ViewData["Title"] = "All Users";
+}
+
+<h2>Users</h2>
+
+<table class="table table-striped table-bordered">
+	<tr>
+		<th>
+			@Html.DisplayNameFor(model => model.FullName)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Email)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.CreatedIssuesCount)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.AssignedIssuesCount)
+		</th>
+		<th>Quick actions</th>
+	</tr>
+
+	@foreach (var user in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => user.FullName)
+			</td>
+			<td>
+				@Html.DisplayFor(m => user.Email)
+			</td>
+			<td>
+				<a asp-controller="Issues" asp-action="By" asp-route-id="@user.Email">@user.CreatedIssuesCount</a>
+			</td>
+			<td>
+				<a asp-controller="Issues" asp-action="AssignedTo" asp-route-id="@user.Email">@user.AssignedIssuesCount</a>
+			</td>
+			<td>
+				<a asp-action="Profile" asp-route-id="@user.Email" class="btn btn-primary">Profile</a>
+			</td>
+		</tr>
+	}
+</table>

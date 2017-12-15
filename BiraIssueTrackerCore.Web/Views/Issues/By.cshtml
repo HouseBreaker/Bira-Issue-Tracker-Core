@@ -1,0 +1,18 @@
+﻿@model IEnumerable<BiraIssueTrackerCore.Web.Models.IssueTracker.IssueViewModel>
+
+@{
+	ViewData["Title"] = $"Issues by {ViewData["Email"]}";
+}
+
+<h2>Issues by @ViewData["Email"]</h2>
+
+<p>
+	<a asp-action="New" class="btn btn-success">Submit New</a>
+	@if (User.Identity.IsAuthenticated)
+	{
+		<a asp-action="Mine" class="btn btn-primary">My Issues</a>
+		<a asp-action="AssignedToMe" class="btn btn-primary">Assigned to me</a>
+	}
+</p>
+
+@Html.Partial("_TablePartial")

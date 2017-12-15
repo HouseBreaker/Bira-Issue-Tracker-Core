@@ -1,0 +1,84 @@
+﻿@model BiraIssueTrackerCore.Web.Models.Identity.UserProfileViewModel
+@{
+	ViewBag.Title = $"{Model.Email} - Profile";
+}
+<div>
+	<h3>Profile - @Model.FullName</h3>
+	<hr />
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.DisplayNameFor(model => model.FullName)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.FullName)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.Email)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Email)
+		</dd>
+
+		<dt>
+			Issues Created
+		</dt>
+
+		<dd>
+			<ul class="list-group issues">
+				@foreach (var issue in Model.CreatedIssues)
+				{
+					<a asp-controller="Issues" asp-action="Details" asp-route-id="@issue.Id" class="list-group-item">@issue.Title</a>
+				}
+			</ul>
+		</dd>
+
+		<dt>
+			Assigned issues
+		</dt>
+
+		<dd>
+			<ul class="list-group issues">
+				@foreach (var issue in Model.AssignedIssues)
+				{
+					<a asp-controller="Issues" asp-action="Details" asp-route-id="@issue.Id" class="list-group-item">@issue.Title</a>
+				}
+			</ul>
+		</dd>
+
+		<dt>
+			Solved issues
+		</dt>
+
+		<dd>
+			@{
+				var solvedIssuesRatio = Model.SolvedIssuesRatio;
+				string progressBarColor;
+				if (solvedIssuesRatio < 20)
+				{
+					progressBarColor = "danger";
+				}
+				else if (solvedIssuesRatio >= 20 && solvedIssuesRatio <= 80)
+				{
+					progressBarColor = "warning";
+				}
+				else
+				{
+					progressBarColor = "success";
+				}
+			}
+
+			<div class="progress">
+				<div class="progress-bar progress-bar-@progressBarColor progress-bar-striped" role="progressbar"
+					 aria-valuenow="@solvedIssuesRatio" aria-valuemin="0" aria-valuemax="100" style="width: @solvedIssuesRatio%">
+					@solvedIssuesRatio%
+				</div>
+			</div>
+		</dd>
+	</dl>
+</div>
+<p>
+	<a asp-action="Index" class="btn btn-default">Back to List</a>
+</p>
