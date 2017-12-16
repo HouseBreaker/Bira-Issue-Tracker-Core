@@ -31,7 +31,7 @@
 	<div class="form-group">
 		@Html.LabelFor(model => model.AssigneeEmail, new { @class = "control-label col-md-2" })
 		<div class="col-md-10">
-			@Html.TextBoxFor(m => m.AssigneeEmail, new { @class = "form-control" })
+			@Html.TextBoxFor(m => m.AssigneeEmail, new { @class = "form-control", id = "assigneeEmail" })
 		</div>
 	</div>
 
@@ -48,3 +48,5 @@
 		</div>
 	</div>
 </form>
+
+@Html.Partial("_AssigneeAutocompletePartial")

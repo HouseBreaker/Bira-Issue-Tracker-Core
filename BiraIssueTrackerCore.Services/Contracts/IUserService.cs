@@ -9,5 +9,7 @@ namespace BiraIssueTrackerCore.Services.Contracts
 		bool Exists(string email);
 
 		IQueryable<TModel> All<TModel>();
+
+		IQueryable<TModel> StartingWithEmail<TModel>(string email);
 	}
 }

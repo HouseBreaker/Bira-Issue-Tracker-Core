@@ -1,0 +1,22 @@
+﻿<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script>
+	$(document).ready(function () {
+		$("#assigneeEmail").autocomplete({
+			source: function (request, response) {
+				$.ajax({
+					url: "/Users/FindByEmail",
+					type: "POST",
+					dataType: "json",
+					data: { id: request.term },
+					success: function (data) {
+						response($.map(data,
+							function (item) {
+								return { label: item, value: item };
+							}));
+					}
+				});
+			}
+		});
+	})
+</script>

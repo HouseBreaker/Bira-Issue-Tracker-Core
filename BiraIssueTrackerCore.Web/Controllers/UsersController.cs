@@ -46,5 +46,15 @@ namespace BiraIssueTrackerCore.Web.Controllers
 
 			return View(user);
 	    }
+
+		[HttpPost]
+	    public JsonResult FindByEmail(string id)
+	    {
+		    var users = userService.StartingWithEmail<UserDropdownDto>(id)
+				.Select(dto => dto.Email)
+			    .ToArray();
+
+		    return Json(users);
+	    }
 	}
 }

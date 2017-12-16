@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using BiraIssueTrackerCore.Services.Contracts;
+using BiraIssueTrackerCore.Web.Models.Identity;
 using BiraIssueTrackerCore.Web.Models.IssueTracker;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace BiraIssueTrackerCore.Web.Controllers
 {

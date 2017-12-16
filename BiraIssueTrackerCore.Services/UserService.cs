@@ -25,5 +25,10 @@ namespace BiraIssueTrackerCore.Services
 
 		public IQueryable<TModel> All<TModel>()
 			=> context.Users.AsQueryable().ProjectTo<TModel>();
+
+		public IQueryable<TModel> StartingWithEmail<TModel>(string email)
+			=> context.Users
+				.Where(u => u.Email.ToLower().StartsWith(email.ToLower()))
+				.ProjectTo<TModel>();
 	}
 }
