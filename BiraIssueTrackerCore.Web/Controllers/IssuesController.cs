@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using BiraIssueTrackerCore.Models;
 using BiraIssueTrackerCore.Services.Contracts;
 using BiraIssueTrackerCore.Web.Models.IssueTracker;
 using Microsoft.AspNetCore.Authorization;
@@ -49,6 +49,11 @@ namespace BiraIssueTrackerCore.Web.Controllers
 		public IActionResult Details(int id)
 		{
 			var issue = issueService.ById<IssueViewModel>(id);
+			if (issue == null)
+			{
+				return RedirectToAction("Index");
+			}
+
 			SetAuthorizationState(issue);
 
 			return View(issue);
@@ -79,22 +84,13 @@ namespace BiraIssueTrackerCore.Web.Controllers
 				return RedirectToAction("Index");
 			}
 
-			//var stateIsValid = Enum.TryParse<State>(model.State, out var state);
-			//if (!stateIsValid)
-			//{
-			//	return RedirectToAction("Index");
-			//}
-
 			var assigneeExists = userService.Exists(model.AssigneeEmail);
 			if (!assigneeExists)
 			{
 				return RedirectToAction("Index");
 			}
 
-			var tagNames = model.Tags
-				.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
-				.Select(a => a.Trim())
-				.ToArray();
+			var tagNames = SplitTags(model.Tags).ToArray();
 
 			var issue = issueService.Create(
 				model.Title,
@@ -109,6 +105,7 @@ namespace BiraIssueTrackerCore.Web.Controllers
 			return RedirectToAction("Details", new { id = issue.Id });
 		}
 
+		[Authorize]
 		public IActionResult Edit(int id)
 		{
 			var issue = issueService.ById<IssueEditViewModel>(id);
@@ -132,17 +129,59 @@ namespace BiraIssueTrackerCore.Web.Controllers
 		}
 
 		[HttpPost]
+		[Authorize]
 		[ValidateAntiForgeryToken]
-		public IActionResult Edit(IssueEditViewModel issueEditViewModel)
+		public IActionResult Edit(int id, IssueEditViewModel model)
 		{
-			return null;
+			if (!issueService.Exists(id))
+			{
+				return RedirectToAction("Index");
+			}
+
+			if (!ModelState.IsValid)
+			{
+				return RedirectToAction("Details", new {id});
+			}
+
+			if (!User.IsInRole("Administrators") && !issueService.IsAuthor(id, User.Identity.Name))
+			{
+				return RedirectToAction("Index");
+			}
+
+			var assigneeExists = userService.Exists(model.AssigneeEmail);
+			if (!assigneeExists)
+			{
+				return RedirectToAction("Index");
+			}
+
+			issueService.Edit(id,
+				model.Title,
+				model.Description,
+				model.State,
+				model.AssigneeEmail,
+				SplitTags(model.Tags)
+			);
+
+			return RedirectToAction("Details", new {id});
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public IActionResult EditState(IssueEditViewModel issueEditViewModel)
+		public IActionResult EditState(int id, IssueEditViewModel model)
 		{
-			return null;
+			if (!issueService.Exists(id))
+			{
+				return RedirectToAction("Index");
+			}
+
+			if (!User.IsInRole("Administrators") && !issueService.IsAssignee(id, User.Identity.Name))
+			{
+				return RedirectToAction("Index");
+			}
+
+			issueService.Edit(id, model.State);
+
+			return RedirectToAction("Details", new { id });
 		}
 
 		[Authorize]
@@ -218,6 +257,15 @@ namespace BiraIssueTrackerCore.Web.Controllers
 				issue.UserCanEdit = userIsAuthor || isAdmin;
 				issue.UserCanChangeState = userIsAssignee;
 			}
+		}
+
+		private static IEnumerable<string> SplitTags(string tagsString)
+		{
+			var splitTags = tagsString
+				.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
+				.Select(a => a.Trim());
+
+			return splitTags;
 		}
 	}
 }

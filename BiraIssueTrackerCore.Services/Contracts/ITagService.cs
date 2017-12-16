@@ -12,5 +12,7 @@ namespace BiraIssueTrackerCore.Services.Contracts
 		Tag BySlug(string slug);
 
 		IQueryable<TModel> All<TModel>();
+
+		void Prune();
     }
 }

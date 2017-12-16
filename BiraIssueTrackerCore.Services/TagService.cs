@@ -34,5 +34,15 @@ namespace BiraIssueTrackerCore.Services
 
 		public IQueryable<TModel> All<TModel>()
 			=> context.Tags.AsQueryable().ProjectTo<TModel>();
+
+		public void Prune()
+		{
+			var tagsToPrune = context.Tags.Where(t => !t.IssueTags.Any())
+				.ToArray();
+
+			context.Tags.RemoveRange(tagsToPrune);
+
+			context.SaveChanges();
+		}
 	}
 }

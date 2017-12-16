@@ -6,6 +6,7 @@ using AutoMapper.QueryableExtensions;
 using BiraIssueTrackerCore.Data;
 using BiraIssueTrackerCore.Models;
 using BiraIssueTrackerCore.Services.Contracts;
+using Microsoft.EntityFrameworkCore;
 
 namespace BiraIssueTrackerCore.Services
 {
@@ -45,32 +46,59 @@ namespace BiraIssueTrackerCore.Services
 			return issue;
 		}
 
-		public Issue Edit(
-			int id,
-			string title = null,
-			string description = null,
-			State state = State.InProgress,
-			string authorEmail = null,
-			string assigneeEmail = null,
-			DateTime date = new DateTime())
+		public Issue Edit(int id,
+			string title,
+			string description,
+			State state,
+			string assigneeEmail,
+			IEnumerable<string> tagStrings
+		)
 		{
-			throw new NotImplementedException();
+			var issue = context.Issues
+				.Include(i => i.IssueTags)
+				.SingleOrDefault(i => i.Id == id);
+
+			issue.Title = title;
+			issue.Description = description;
+			issue.State = state;
+			issue.AssigneeId = context.Users.Single(u => u.Email == assigneeEmail).Id;
+
+			var newTags = tagStrings
+				.Select(t => tagService.ByName(t) ?? tagService.Create(t))
+				.Select(t => new IssueTag { Issue = issue, Tag = t })
+				.ToArray();
+
+			issue.IssueTags.Clear();
+			context.SaveChanges();
+
+			issue.IssueTags = newTags;
+			context.SaveChanges();
+
+			tagService.Prune();
+
+			return issue;
+		}
+
+		public Issue Edit(int id, State state)
+		{
+			var issue = context.Issues.Find(id);
+
+			issue.State = state;
+
+			context.SaveChanges();
+
+			return issue;
 		}
 
 		public void Delete(int id)
 		{
 			var issue = context.Issues.Where(i => i.Id == id);
 
-			var tagsToPrune = issue
-				.SelectMany(i => i.IssueTags.Where(it => it.Tag.IssueTags.Count == 1))
-				.Select(it => it.Tag)
-				.ToArray();
-
-			context.Tags.RemoveRange(tagsToPrune);
-
 			context.Issues.Remove(issue.SingleOrDefault());
 
 			context.SaveChanges();
+
+			tagService.Prune();
 		}
 
 		public bool Exists(int id)
@@ -98,7 +126,7 @@ namespace BiraIssueTrackerCore.Services
 		public IQueryable<TModel> ByStates<TModel>(params State[] states)
 			=> By<TModel>(i => states.Contains(i.State));
 
-		public bool IsAuthor(int issueId, string email) 
+		public bool IsAuthor(int issueId, string email)
 			=> context.Issues.SingleOrDefault(i => i.Id == issueId && i.Author.Email == email) != null;
 
 		public bool IsAssignee(int issueId, string email)
