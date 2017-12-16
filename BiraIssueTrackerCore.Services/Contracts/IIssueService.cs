@@ -40,5 +40,9 @@ namespace BiraIssueTrackerCore.Services.Contracts
 	    IQueryable<TModel> ByTag<TModel>(string tagSlug);
 
 		IQueryable<TModel> ByStates<TModel>(params State[] states);
+
+		bool IsAuthor(int issueId, string email);
+
+	    bool IsAssignee(int issueId, string email);
     }
 }

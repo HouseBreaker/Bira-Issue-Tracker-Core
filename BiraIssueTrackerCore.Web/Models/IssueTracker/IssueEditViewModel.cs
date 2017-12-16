@@ -4,8 +4,11 @@ using BiraIssueTrackerCore.Models;
 
 namespace BiraIssueTrackerCore.Web.Models.IssueTracker
 {
-	public class IssueCreateViewModel
+	public class IssueEditViewModel
 	{
+		[Required]
+		public int Id { get; set; }
+
 		[Required]
 		[StringLength(30, MinimumLength = 3)]
 		public string Title { get; set; }
@@ -13,7 +16,7 @@ namespace BiraIssueTrackerCore.Web.Models.IssueTracker
 		[DataType(DataType.MultilineText)]
 		public string Description { get; set; }
 
-		public State State { get; set; } = State.Open;
+		public State State { get; set; }
 
 		[DisplayName("Assignee")]
 		[DataType(DataType.EmailAddress)]

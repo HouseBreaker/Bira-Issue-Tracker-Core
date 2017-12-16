@@ -1,12 +1,12 @@
-﻿@model BiraIssueTrackerCore.Web.Models.IssueTracker.IssueCreateViewModel
+﻿@model BiraIssueTrackerCore.Web.Models.IssueTracker.IssueEditViewModel
 
 @{
-	ViewData["Title"] = "New Issue";
+	ViewData["Title"] = "Edit Issue";
 }
-<h2>New Issue</h2>
-<h4>Go ahead... Ruin someone's day...</h4>
+
+<h2>Edit Issue</h2>
 <hr />
-<form asp-action="New" class="form-horizontal" method="post">
+<form asp-action="Edit" class="form-horizontal" method="post">
 	<div class="form-group">
 		@Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2" })
 		<div class="col-md-10">
@@ -24,7 +24,7 @@
 	<div class="form-group">
 		@Html.LabelFor(model => model.State, new { @class = "control-label col-md-2" })
 		<div class="col-md-10">
-			@Html.EditorFor(model => model.State)
+			@Html.EditorFor(m => m.State)
 		</div>
 	</div>
 

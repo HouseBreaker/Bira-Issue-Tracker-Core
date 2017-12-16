@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BiraIssueTrackerCore.Data",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BiraIssueTrackerCore.Services", "BiraIssueTrackerCore.Services\BiraIssueTrackerCore.Services.csproj", "{9A22FCF6-0D52-49CC-99D8-4F375D155B37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiraIssueTrackerCore.Models", "BiraIssueTrackerCore.Models\BiraIssueTrackerCore.Models.csproj", "{90AE05C9-977C-4D3A-AFC6-BF333612D37C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BiraIssueTrackerCore.Models", "BiraIssueTrackerCore.Models\BiraIssueTrackerCore.Models.csproj", "{90AE05C9-977C-4D3A-AFC6-BF333612D37C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiraIssueTrackerCore.Tests", "BiraIssueTrackerCore.Tests\BiraIssueTrackerCore.Tests.csproj", "{92B9D64F-1A00-4E52-8332-A9F2ED895E51}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{90AE05C9-977C-4D3A-AFC6-BF333612D37C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90AE05C9-977C-4D3A-AFC6-BF333612D37C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90AE05C9-977C-4D3A-AFC6-BF333612D37C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92B9D64F-1A00-4E52-8332-A9F2ED895E51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92B9D64F-1A00-4E52-8332-A9F2ED895E51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92B9D64F-1A00-4E52-8332-A9F2ED895E51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92B9D64F-1A00-4E52-8332-A9F2ED895E51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

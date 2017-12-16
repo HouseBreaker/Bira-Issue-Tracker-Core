@@ -44,6 +44,12 @@ namespace BiraIssueTrackerCore.Web.Infrastructure
 					upvm => upvm.AssignedIssues,
 					cfg => cfg.MapFrom(u => u.AssignedIssues)
 				);
+
+			CreateMap<Issue, IssueEditViewModel>()
+				.ForMember(
+					ievm => ievm.Tags,
+					cfg => cfg.MapFrom(i => string.Join(", ", i.IssueTags.Select(t => t.Tag.Name)))
+				);
 		}
 	}
 }

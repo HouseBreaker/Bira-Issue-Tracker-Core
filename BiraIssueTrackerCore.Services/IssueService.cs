@@ -56,7 +56,7 @@ namespace BiraIssueTrackerCore.Services
 		{
 			throw new NotImplementedException();
 		}
-		
+
 		public void Delete(int id)
 		{
 			var issue = context.Issues.Where(i => i.Id == id);
@@ -78,7 +78,7 @@ namespace BiraIssueTrackerCore.Services
 
 		public TModel ById<TModel>(int id)
 			=> By<TModel>(i => i.Id == id)
-				.Single();
+				.SingleOrDefault();
 
 		public IQueryable<TModel> All<TModel>()
 			=> By<TModel>();
@@ -97,6 +97,12 @@ namespace BiraIssueTrackerCore.Services
 
 		public IQueryable<TModel> ByStates<TModel>(params State[] states)
 			=> By<TModel>(i => states.Contains(i.State));
+
+		public bool IsAuthor(int issueId, string email) 
+			=> context.Issues.SingleOrDefault(i => i.Id == issueId && i.Author.Email == email) != null;
+
+		public bool IsAssignee(int issueId, string email)
+			=> context.Issues.SingleOrDefault(i => i.Id == issueId && i.Assignee.Email == email) != null;
 
 		public IQueryable<TModel> ByAuthorAndState<TModel>(string email, IEnumerable<State> states)
 			=> By<TModel>(i => i.Author.Email == email && states.Contains(i.State));

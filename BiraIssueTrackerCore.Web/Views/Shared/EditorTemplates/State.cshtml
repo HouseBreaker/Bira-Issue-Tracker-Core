@@ -1,0 +1,8 @@
+﻿@using BiraIssueTrackerCore.Web.Extensions;
+@model BiraIssueTrackerCore.Models.State
+@foreach (Enum value in Enum.GetValues(typeof(BiraIssueTrackerCore.Models.State)))
+{
+	<label class="radio-inline">
+		@Html.RadioButtonFor(m => m, value)@value.DisplayName()
+	</label>
+}

@@ -79,11 +79,11 @@ namespace BiraIssueTrackerCore.Web.Controllers
 				return RedirectToAction("Index");
 			}
 
-			var stateIsValid = Enum.TryParse<State>(model.State, out var state);
-			if (!stateIsValid)
-			{
-				return RedirectToAction("Index");
-			}
+			//var stateIsValid = Enum.TryParse<State>(model.State, out var state);
+			//if (!stateIsValid)
+			//{
+			//	return RedirectToAction("Index");
+			//}
 
 			var assigneeExists = userService.Exists(model.AssigneeEmail);
 			if (!assigneeExists)
@@ -99,7 +99,7 @@ namespace BiraIssueTrackerCore.Web.Controllers
 			var issue = issueService.Create(
 				model.Title,
 				model.Description,
-				state,
+				model.State,
 				User.Identity.Name,
 				model.AssigneeEmail,
 				DateTime.Now,
@@ -107,6 +107,42 @@ namespace BiraIssueTrackerCore.Web.Controllers
 			);
 
 			return RedirectToAction("Details", new { id = issue.Id });
+		}
+
+		public IActionResult Edit(int id)
+		{
+			var issue = issueService.ById<IssueEditViewModel>(id);
+
+			if (issue == null)
+			{
+				return RedirectToAction("Index");
+			}
+
+			if (User.IsInRole("Administrators") || issueService.IsAuthor(id, User.Identity.Name))
+			{
+				return View("Edit", issue);
+			}
+
+			if (issueService.IsAssignee(id, User.Identity.Name))
+			{
+				return View("EditState", issue);
+			}
+
+			return RedirectToAction("Index");
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public IActionResult Edit(IssueEditViewModel issueEditViewModel)
+		{
+			return null;
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public IActionResult EditState(IssueEditViewModel issueEditViewModel)
+		{
+			return null;
 		}
 
 		[Authorize]
