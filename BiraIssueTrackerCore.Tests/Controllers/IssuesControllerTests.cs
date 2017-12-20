@@ -168,8 +168,6 @@ namespace BiraIssueTrackerCore.Tests.Controllers
 			Assert.That(result, Is.TypeOf<RedirectToActionResult>());
 		}
 
-		// By
-
 		private static ControllerContext SetupControllerContextMock(string email, string[] roles)
 		{
 			var controllerContextMock = new Mock<ControllerContext>();

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using BiraIssueTrackerCore.Web.Infrastructure;
 
 namespace BiraIssueTrackerCore.Web.Models.Identity.ManageViewModels
 {
@@ -10,14 +11,14 @@ namespace BiraIssueTrackerCore.Web.Models.Identity.ManageViewModels
         public string OldPassword { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+        [StringLength(PasswordConfiguration.MaxLength, ErrorMessage = PasswordConfiguration.ErrorMessage, MinimumLength = PasswordConfiguration.MinLength)]
         [DataType(DataType.Password)]
         [Display(Name = "New password")]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [Compare("NewPassword", ErrorMessage = PasswordConfiguration.ConfirmationMessage)]
         public string ConfirmPassword { get; set; }
 
         public string StatusMessage { get; set; }

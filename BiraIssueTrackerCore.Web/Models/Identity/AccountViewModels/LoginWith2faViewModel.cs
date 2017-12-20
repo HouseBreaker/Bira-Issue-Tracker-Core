@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using BiraIssueTrackerCore.Web.Infrastructure;
 
 namespace BiraIssueTrackerCore.Web.Models.Identity.AccountViewModels
 {
     public class LoginWith2faViewModel
     {
         [Required]
-        [StringLength(7, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+        [StringLength(7, ErrorMessage = PasswordConfiguration.ErrorMessage, MinimumLength = PasswordConfiguration.MinLength)]
         [DataType(DataType.Text)]
         [Display(Name = "Authenticator code")]
         public string TwoFactorCode { get; set; }
